@@ -216,7 +216,8 @@ class _CreateMachineState extends State<CreateMachine> {
 
   Future pickImage(ImageSource imageSource) async {
     try {
-      final image = await ImagePicker().pickImage(source: imageSource);
+      final image = await ImagePicker()
+          .pickImage(source: imageSource, maxHeight: 800, maxWidth: 800);
       if (image == null) return;
 
       // print(image);
