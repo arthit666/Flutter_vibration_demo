@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vibration_demo/screens/update_machine.dart';
 
 class MachineSingleArguments {
   final String id;
@@ -53,12 +54,12 @@ class _MachineSingleState extends State<MachineSingle> {
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 10,
             ),
             SizedBox(
               width: double.infinity,
-              child: tableMachineDetail(args.machineName, args.equipment,
-                  args.status, args.problem, args.priority),
+              child: tableMachineDetail(args.id, args.machineName, args.picture,
+                  args.equipment, args.status, args.problem, args.priority),
             ),
             SizedBox(
               height: 10,
@@ -95,7 +96,9 @@ class _MachineSingleState extends State<MachineSingle> {
                           content: Text('Delete Machine Complete'),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        Navigator.pushReplacementNamed(context, '/machinelist');
+
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/machinelist', (Route<dynamic> route) => false);
                       });
                     },
                     child: Text(
@@ -112,9 +115,9 @@ class _MachineSingleState extends State<MachineSingle> {
     );
   }
 
-  Widget tableMachineDetail(name, equi, status, prob, pri) {
+  Widget tableMachineDetail(id, name, pic, equi, status, prob, pri) {
     return DataTable(
-      columns: const <DataColumn>[
+      columns: <DataColumn>[
         DataColumn(
           label: Text(
             'Description',
@@ -126,13 +129,29 @@ class _MachineSingleState extends State<MachineSingle> {
           ),
         ),
         DataColumn(
-          label: Text(
-            'Result',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: Colors.blue,
-            ),
+          label: Row(
+            children: [
+              Text(
+                'Result',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.blue,
+                ),
+              ),
+              SizedBox(
+                width: 3,
+              ),
+              IconButton(
+                icon: const Icon(Icons.edit),
+                color: Colors.orange,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/updatemachine',
+                      arguments: UpdateArguments(
+                          id, name, pic, status, pri, equi, prob));
+                },
+              ),
+            ],
           ),
         ),
       ],

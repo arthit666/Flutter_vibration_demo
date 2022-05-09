@@ -89,7 +89,7 @@ class _MachineListState extends State<MachineList> {
     var url =
         Uri.parse('https://arthit-vibration-iot.herokuapp.com/api/machine');
     var response = await http.get(url);
-    print('Response body: ${response.body}');
+    // print('Response body: ${response.body}');
     machineList = jsonDecode(response.body);
     List reversedList = new List.from(machineList.reversed);
     return reversedList;

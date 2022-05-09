@@ -2,7 +2,7 @@
     package="com.example.vibration_demo">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="vibration_demo"
+        android:label="My Machine"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
